@@ -1,6 +1,15 @@
 {
   "pages": [
     {
+      "title": "3.2 / Index.Xhtml",
+      "href": "./Book/3.2/index.xhtml",
+      "css": [
+        "./Book/3.2/styles/print.css",
+        "./Book/3.2/styles/style1.css",
+        "./Book/3.2/styles/style2.css"
+      ]
+    },
+    {
       "title": "Book / 3.1",
       "href": "./Book/3.1/index.html",
       "css": [
@@ -8,13 +17,9 @@
       ]
     },
     {
-      "title": "Book / 3.2",
-      "href": "./Book/3.2/index.html",
-      "css": [
-        "./Book/3.2/styles/print.css",
-        "./Book/3.2/styles/style1.css",
-        "./Book/3.2/styles/style2.css"
-      ]
+      "title": "Book / 3.3",
+      "href": "./Book/3.3/index.html",
+      "css": []
     },
     {
       "title": "Index",

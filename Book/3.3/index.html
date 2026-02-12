@@ -1,0 +1,31 @@
+<!-- 3.3. Write an embedded style sheet (including the appropriate HTML tags) that sets the value
+of the font-family property to Gill Sans Bold Small Caps & OSF for all elements of
+the document. -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ex 3.3</title>
+    <style>
+      * {
+        font-family: "Gill Sans Bold Small Caps & OSF", sans-serif;
+      }
+      #main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 40px) ;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+        <div id="main">
+            <p>Hello world. </p>
+            <p>Some more basic text so you can see the font is throughout the document.</p>
+        </div>
+    </main>
+  </body>
+</html>

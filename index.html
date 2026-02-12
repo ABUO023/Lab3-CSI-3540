@@ -14,7 +14,9 @@
       <div class="w-full max-w-xl text-center">
         <h1 class="text-2xl font-bold">CSI3540 - Lab 3</h1>
         <p class="mt-1 text-sm text-neutral-600">
-          Part 1 (CSS) — links loaded from <code class="px-1 bg-neutral-200 rounded">site-map.json</code>
+          All hosted code for this lab. Click the blue link to open the HTML
+          page, and use <br />
+          “Show CSS” to view the stylesheet files.
         </p>
 
         <div class="mt-5">
@@ -39,91 +41,97 @@
     </main>
 
     <script>
-    const SITE_MAP = {
-        "pages": [
-        {
-            "title": "Book / 3.1",
-            "href": "./Book/3.1/index.html",
-            "css": ["./Book/3.1/main.css"]
-        },
-        {
-            "title": "Book / 3.2",
-            "href": "./Book/3.2/index.html",
-            "css": [
-            "./Book/3.2/styles/print.css",
-            "./Book/3.2/styles/style1.css",
-            "./Book/3.2/styles/style2.css"
-            ]
-        }
-        ]
-    };
+      const SITE_MAP = {
+        pages: [
+          {
+            title: "3.2 / Index.Xhtml",
+            href: "./Book/3.2/index.xhtml",
+            css: [
+              "./Book/3.2/styles/print.css",
+              "./Book/3.2/styles/style1.css",
+              "./Book/3.2/styles/style2.css",
+            ],
+          },
+          {
+            title: "Book / 3.1",
+            href: "./Book/3.1/index.html",
+            css: ["./Book/3.1/main.css"],
+          },
+          {
+            title: "Book / 3.3",
+            href: "./Book/3.3/index.html",
+            css: [],
+          },
+        ],
+      };
 
-    const list = document.getElementById("list");
-    const status = document.getElementById("status");
-    const search = document.getElementById("search");
+      const list = document.getElementById("list");
+      const status = document.getElementById("status");
+      const search = document.getElementById("search");
 
-    let pages = SITE_MAP.pages || [];
+      let pages = SITE_MAP.pages || [];
 
-    function render() {
+      function render() {
         const q = search.value.trim().toLowerCase();
 
         const filtered = pages.filter((p) => {
-        const hay = `${p.title} ${p.href}`.toLowerCase();
-        return hay.includes(q);
+          const hay = `${p.title} ${p.href}`.toLowerCase();
+          return hay.includes(q);
         });
 
         list.innerHTML = "";
 
         if (filtered.length === 0) {
-        list.innerHTML = `<li class="text-neutral-500">No results.</li>`;
-        status.textContent = "0 pages shown";
-        return;
+          list.innerHTML = `<li class="text-neutral-500">No results.</li>`;
+          status.textContent = "0 pages shown";
+          return;
         }
 
         for (const p of filtered) {
-        const cssList = (p.css || [])
+          const cssArr = p.css || [];
+
+          const cssList = cssArr
             .map(
-            (c) => `
+              (c) => `
                 <li class="ml-4 list-disc">
-                <a href="${c}" class="text-blue-700 underline hover:text-blue-900">${c}</a>
+                  <a href="${c}" class="text-blue-700 underline hover:text-blue-900">${c}</a>
                 </li>
-            `
+              `
             )
             .join("");
 
-        const li = document.createElement("li");
+          const li = document.createElement("li");
 
-        li.innerHTML = `
+          li.innerHTML = `
             <div class="rounded border border-neutral-200 bg-neutral-50 p-3">
-            <a href="${p.href}" class="text-blue-700 underline hover:text-blue-900 font-semibold">
+              <a href="${p.href}" class="text-blue-700 underline hover:text-blue-900 font-semibold">
                 ${p.title}
-            </a>
-            <div class="text-xs text-neutral-500 mt-1">${p.href}</div>
+              </a>
+              <div class="text-xs text-neutral-500 mt-1">${p.href}</div>
 
-            <details class="mt-2">
-                <summary class="cursor-pointer text-sm text-neutral-700">
-                Show CSS (${(p.css || []).length})
-                </summary>
-
-                ${
-                (p.css || []).length === 0
-                    ? `<p class="mt-2 text-xs text-neutral-500">No CSS found.</p>`
-                    : `<ul class="mt-2 text-sm">${cssList}</ul>`
-                }
-            </details>
+              ${
+                cssArr.length === 0
+                  ? ""
+                  : `
+                    <details class="mt-2">
+                      <summary class="cursor-pointer text-sm text-neutral-700">
+                        Show CSS (${cssArr.length})
+                      </summary>
+                      <ul class="mt-2 text-sm">${cssList}</ul>
+                    </details>
+                  `
+              }
             </div>
-        `;
+          `;
 
-        list.appendChild(li);
+          list.appendChild(li);
         }
 
         status.textContent = `${filtered.length} page(s) shown`;
-    }
+      }
 
-    search.addEventListener("input", render);
-    render();
+      search.addEventListener("input", render);
+      render();
     </script>
-
-
   </body>
 </html>

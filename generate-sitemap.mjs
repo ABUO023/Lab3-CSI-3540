@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 const IGNORE_DIRS = new Set(["node_modules", ".git", "target", "dist", "build"]);
-const INCLUDE_HTML = new Set([".html"]);
+const INCLUDE_HTML = new Set([".html", ".xhtml"]);
 const INCLUDE_CSS = new Set([".css"]);
 
 async function walk(dir, root) {
@@ -44,7 +44,10 @@ function makeTitleFromPath(href) {
 const root = process.cwd();
 const files = await walk(root, root);
 
-const htmlFiles = files.filter((f) => path.extname(f).toLowerCase() === ".html");
+const htmlFiles = files.filter((f) => {
+  const ext = path.extname(f).toLowerCase();
+  return ext === ".html" || ext === ".xhtml";
+});
 const cssFiles = files.filter((f) => path.extname(f).toLowerCase() === ".css");
 
 // Build a map: folder -> css files inside it (including subfolders)
@@ -72,7 +75,7 @@ function findCssForHtml(htmlPath) {
 
 // Build pages only from index.html files (your use-case)
 const pages = htmlFiles
-  .filter((p) => p.endsWith("index.html"))
+  .filter((p) => /index\.(html|xhtml)$/i.test(p))
   .map((href) => {
     const title = makeTitleFromPath(href) || href;
     const css = findCssForHtml(href).map((c) => `./${c}`);
