@@ -1,0 +1,8 @@
+@import url("print.css");
+
+p, em {
+  background-color: silver;
+  font-size: larger;
+}
+
+#Nevada, .shiny { background-color: silver; }

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Selector Practice</title>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+
+  <body>
+    <h1>CSS Selector Practice</h1>
+
+    <hr />
+
+    <h2>(a) div + strong</h2>
+
+    <div>
+      This is a div. Inside it is a <strong>strong element</strong>.
+    </div>
+
+    <div>
+      Another div with <strong>bold/strong text</strong>.
+    </div>
+
+    <p>
+      This strong is NOT inside a div:
+      <strong>strong outside div</strong>
+    </p>
+
+    <hr />
+
+    <h2>(b) p + em (same rule)</h2>
+
+    <p>This is a paragraph.</p>
+    <p>This paragraph contains <em>emphasized text</em> inside it.</p>
+    <em>This em element is outside of a paragraph.</em>
+
+    <hr />
+
+    <h2>(c) #Nevada + .shiny</h2>
+
+    <p id="Nevada">
+      This paragraph has <code>id="Nevada"</code>.
+    </p>
+
+    <div class="shiny">
+      This div has <code>class="shiny"</code>.
+    </div>
+
+    <p class="shiny">
+      This paragraph also has <code>class="shiny"</code>.
+    </p>
+
+    <p id="California">
+      This paragraph has <code>id="California"</code> (should NOT match Nevada).
+    </p>
+
+    <hr />
+
+    <h2>(d) span.bigger</h2>
+
+    <p>
+      Normal text...
+      <span class="bigger">This span has class bigger.</span>
+      ...back to normal.
+    </p>
+
+    <p>
+      <span>This span has no class.</span>
+    </p>
+
+    <hr />
+
+    <h2>(e) span inside span</h2>
+
+    <p>
+      <span>
+        Outer span start...
+        <span>Inner span (this should match the descendant rule)</span>
+        ...outer span end.
+      </span>
+    </p>
+
+    <p>
+      <span>This is a span NOT inside another span.</span>
+    </p>
+
+    <hr />
+
+    <h2>(f) Hover link</h2>
+
+    <p>
+      Hover this link:
+      <a href="https://example.com" target="_blank" rel="noreferrer">
+        example.com
+      </a>
+    </p>
+
+    <p>
+      Another link:
+      <a href="#">Fake link</a>
+    </p>
+  </body>
+</html>
