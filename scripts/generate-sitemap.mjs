@@ -79,7 +79,7 @@ const pages = htmlFiles
   .map((href) => {
     const title = makeTitleFromPath(href) || href;
     const css = findCssForHtml(href).map((c) => `./${c}`);
-
+w
     return {
       title,
       href: `./${href}`,

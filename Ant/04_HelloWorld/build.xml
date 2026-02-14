@@ -1,0 +1,30 @@
+<project name="HelloWorld" basedir="." default="main">
+
+  <property file="build.properties"/>
+
+  <target name="clean" description="Deletes all the build files">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" description="Compiles the source code">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+  </target>
+
+  <target name="jar" description="Packages the application's archive file" depends="compile">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${main-class}"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run" description="Executes the program" depends="jar">
+    <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+  </target>
+
+  <target name="clean-build" depends="clean,jar"/>
+  <target name="main" description="Default target" depends="clean,run"/>
+
+</project>

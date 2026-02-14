@@ -1,0 +1,76 @@
+http://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
+
+mkdir src
+mkdir src/boujour
+cat > src/bonjour/HelloWorld.java
+package bonjour;
+
+public class HelloWorld {
+
+    public static void main( String[] args ) {
+	System.out.println( "Howdy!" );
+    }
+
+}
+^d
+
+mkdir build
+mkdir build/classes
+
+Compilation/exécution sans ant :
+
+javac -sourcepath src -d build/classes src/bonjour/HelloWorld.java
+java -cp build/classes bonjour.HelloWorld
+
+Création d'un .jar
+
+echo "Main-Class: bonjour.HelloWorld" > MANIFEST.MF
+mkdir build/jar
+
+jar cvfm build/jar/HelloWorld.jar manifest.mf -C build/classes .
+
+java -jar build/jar/HelloWorld.jar
+
+---------------
+
+Même chose mais avec ant
+
+build.xml
+
+<project>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="bonjour.HelloWorld"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    </target>
+
+</project>
+
+ant compile
+ant jar
+ant run
+
+ou encore,
+
+ant compile jar run
+
+    </pre>
+  </body>
+</html>
