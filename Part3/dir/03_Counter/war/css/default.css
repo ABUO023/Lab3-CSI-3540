@@ -1,0 +1,40 @@
+body {
+    font-family: "Lucida Grande", sans-serif;
+}
+
+.entete {
+    display: block;
+    width: 400px;
+    margin-top: 10px;
+    padding: 15px 5px 5px 5px;
+    border-width:2px;
+    border-top-style:solid;
+    border-bottom-style:solid;
+    background-color:#77B6D0;
+}
+
+p {
+    width: 400px;
+    padding: 5px 5px 5px 10px;
+    font-family: "Comic Sans MS" fantasy;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:link {
+    color: yellow;
+}
+
+a:visited {
+    color: #3E647E;
+}
+
+a:hover {
+    color: black;
+    background-color: silver;
+}
+
+

@@ -1,0 +1,83 @@
+<project name="common" default="dummy">
+
+  <property file="build.properties"/>
+
+  <path id="classpath">
+    <fileset dir="${server.home}/lib">
+      <include name="javaee.jar"/>
+    </fileset>
+  </path>
+
+  <target name="init">
+    <tstamp/>
+    <echo message="Creating ${app.name}'s src and web directories ..."/>
+    <mkdir dir="${basedir}/src"/>
+    <mkdir dir="${basedir}/web"/>
+    <mkdir dir="${basedir}/web/WEB-INF"/>
+    <mkdir dir="${basedir}/web/WEB-INF/lib"/>
+  </target>
+
+  <target name="clean" description="Deletes the Web Application's war directory and war file">
+    <echo message="Deleting ${app.name}'s war directory and war file ..."/>
+    <delete dir="${basedir}/war"/>
+    <delete file="${basedir}/${app.name}.war"/>
+  </target>
+
+  <target name="prepare" description="Creates the Web Application's war directory" depends="init">
+    <echo message="Creating ${app.name}'s war directory ..."/>
+    <mkdir dir="${basedir}/war"/>
+    <mkdir dir="${basedir}/war/WEB-INF"/>
+    <mkdir dir="${basedir}/war/WEB-INF/classes"/>
+    <mkdir dir="${basedir}/war/WEB-INF/lib"/>
+  </target>
+
+  <target name="build" description="Builds the Web Application" depends="prepare">
+    <echo message="Building ${app.name} ..."/>
+    <javac srcdir="${basedir}/src" destdir="${basedir}/war/WEB-INF/classes">
+      <include name="**/*.java"/>
+      <classpath refid="classpath"/>
+    </javac>
+    <copy todir="${basedir}/war/WEB-INF">
+      <fileset dir="${basedir}/web/WEB-INF">
+        <include name="web.xml"/>
+      </fileset>
+    </copy>
+    <copy todir="${basedir}/war/WEB-INF/lib">
+      <fileset dir="${basedir}/web/WEB-INF/lib">
+	<include name="*.jar"/>
+      </fileset>
+    </copy>
+    <copy todir="${basedir}/war">
+      <fileset dir="${basedir}/web">
+        <include name="**/*.html"/>
+        <include name="**/*.css"/>
+        <include name="**/*.jspx"/>
+        <include name="**/*.txt"/>
+        <include name="**/*.zip"/>
+        <include name="**/*.sit"/>
+        <include name="**/*.gif"/>
+        <include name="**/*.jpg"/>
+        <include name="**/*.png"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="package" description="Packages the Web Application's web archive file" depends="build">
+    <echo message="Packaging ${app.name}'s war file ..."/>
+    <delete file="${basedir}/${app.name}.war"/>
+    <jar jarfile="${basedir}/${app.name}.war">
+      <fileset dir="${basedir}/war" includes="**"/>
+    </jar>
+  </target>
+
+  <target name="deploy" depends="package">
+    <sun-appserv-deploy file="${app.name}.war" passwordfile="../password.txt" precompilejsp="true"/>
+  </target>
+
+  <target name="undeploy">
+    <sun-appserv-undeploy name="${app.name}" passwordfile="../password.txt" />
+  </target>
+
+  <target name="dummy"/>
+
+</project>

@@ -1,0 +1,8 @@
+<project name="Web Application" default="build" basedir=".">
+
+  <property file="build.properties"/>
+  <property file="../build.properties"/>
+
+  <import file="../build-common.xml"/>
+
+</project>
